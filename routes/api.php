@@ -13,15 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::get('/auto-register', 'UserController@autoRegister')->middleware('guest');
 
 Route::prefix('/gas-track')->group(function (){
     Route::get('/', 'GasTrackController@index')->middleware('api.autologin');
     Route::post('/save', 'GasTrackController@save')->middleware('api.autologin');
     Route::get('/{id}/delete', 'GasTrackController@delete')->middleware('api.autologin');
-
 });

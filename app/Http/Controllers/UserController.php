@@ -14,11 +14,12 @@ class UserController extends Controller
         
         if(!isset($auth)) return response(['uid'], 403);
 
-        if(
-            isset($request->api_token) &&
-            User::where('uid', $auth)->where('api_token', $request->api_token)->count() > 0
-        ){
+        if(isset($request->api_token)){
             return response(['invalid request'], 403);
+        }
+
+        if(!isset($request->api_token) && User::where('uid', $auth)->count() > 0){
+            return response(['token missing'], 403);
         }
 
         $user = new User;
