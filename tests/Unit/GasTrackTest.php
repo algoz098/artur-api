@@ -35,7 +35,7 @@ class GasTrackTest extends TestCase
     public function testNonAuthRequest()
     {
         $response = $this
-            ->get('/api/gas-track');
+            ->get('/api/v1/gas-track');
 
         $response
             ->assertJson([
@@ -53,7 +53,7 @@ class GasTrackTest extends TestCase
     {
         $response = $this
             ->withHeaders(['Authorization' => $this->user->uid])
-            ->get('/api/gas-track');
+            ->get('/api/v1/gas-track');
 
         $response
             ->assertJson([
@@ -71,7 +71,7 @@ class GasTrackTest extends TestCase
     {
         $response = $this
             ->withHeaders(['Authorization' => $this->user->uid])
-            ->get('/api/gas-track?api_token=fake');
+            ->get('/api/v1/gas-track?api_token=fake');
 
         $response
             ->assertJson([
@@ -90,7 +90,7 @@ class GasTrackTest extends TestCase
         $this->user->gasTracks()->save(factory(GasTrack::class)->make());
         $response = $this
             ->withHeaders(['Authorization' => $this->user->uid])
-            ->get('/api/gas-track?api_token=' . $this->user->api_token);
+            ->get('/api/v1/gas-track?api_token=' . $this->user->api_token);
 
         $response
             ->assertSee($this->user->gasTracks[0]->toJson())
@@ -110,9 +110,10 @@ class GasTrackTest extends TestCase
 
         $response = $this
             ->withHeaders(['Authorization' => $this->user->uid])
-            ->get('/api/gas-track/'.$track->id.'/delete?api_token=' . $this->user->api_token);
+            ->get('/api/v1/gas-track/'.$track->id.'/delete?api_token=' . $this->user->api_token);
 
         $response->assertStatus(200);
+
 
         $this->assertDatabaseMissing('gas_tracks',  $track->toArray());
     }
@@ -140,8 +141,8 @@ class GasTrackTest extends TestCase
 
         $response = $this
             ->withHeaders(['Authorization' => $this->user->uid])
-            ->json('POST', '/api/gas-track/save?api_token=' . $this->user->api_token, $data);
-
+            ->json('POST', '/api/v1/gas-track/?api_token=' . $this->user->api_token, $data);
+        
         $response->assertStatus(200);
 
         $this->assertDatabaseHas('gas_tracks',  ['user_id' => $this->user->id]);

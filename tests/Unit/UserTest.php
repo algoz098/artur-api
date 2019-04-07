@@ -20,7 +20,7 @@ class UserTest extends TestCase
     {
         $response = $this
             ->withHeaders(['Authorization' => 'test'])
-            ->get('/api/auto-register');
+            ->get('/api/v1/auto-register');
 
         $user = User::where('uid', 'test')->first();
 
@@ -39,7 +39,7 @@ class UserTest extends TestCase
     public function testBlockWithoutHeader()
     {
         $response = $this
-            ->get('/api/auto-register');
+            ->get('/api/v1/auto-register');
 
         $response
             ->assertJson([
@@ -62,7 +62,7 @@ class UserTest extends TestCase
 
         $response = $this
             ->withHeaders(['Authorization' => 'test'])
-            ->get('/api/auto-register');
+            ->get('/api/v1/auto-register');
 
 
         $response
@@ -81,7 +81,7 @@ class UserTest extends TestCase
     {
         $response = $this
             ->withHeaders(['Authorization' => 'test'])
-            ->get('/api/auto-register?api_token=test');
+            ->get('/api/v1/auto-register?api_token=test');
 
         $response
             ->assertJson([

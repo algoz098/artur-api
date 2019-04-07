@@ -40,4 +40,8 @@ class User extends Authenticatable
     public function gasTracks(){
         return $this->hasMany('App\GasTrack', 'user_id');
     }
+
+    public function votes(){
+        return $this->hasMany('App\Vote', 'user_id');
+    }
 }

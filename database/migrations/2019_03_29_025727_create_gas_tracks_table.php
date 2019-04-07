@@ -14,7 +14,7 @@ class CreateGasTracksTable extends Migration
     public function up()
     {
         Schema::create('gas_tracks', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->integer('user_id')->nullable();
             $table->string('km_actual')->nullable();
             $table->string('lts_add')->nullable();

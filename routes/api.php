@@ -13,10 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/auto-register', 'UserController@autoRegister')->middleware('guest');
+Route::get('/v1/auto-register', 'UserController@autoRegister')->middleware('guest');
 
-Route::prefix('/gas-track')->group(function (){
+Route::prefix('/v1/gas-track')->group(function (){
     Route::get('/', 'GasTrackController@index')->middleware('api.autologin');
-    Route::post('/save', 'GasTrackController@save')->middleware('api.autologin');
+    Route::post('/', 'GasTrackController@save')->middleware('api.autologin');
     Route::get('/{id}/delete', 'GasTrackController@delete')->middleware('api.autologin');
+});
+
+Route::prefix('/v1/votes/')->group(function (){
+    Route::post('/', 'VoteController@save')->middleware('api.autologin');
 });
