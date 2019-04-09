@@ -11,10 +11,16 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
-// Auth::routes();
+Auth::routes(['register' => false]);
 
-// Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['prefix' => '/gas-track', 'namespace' => 'Web'], function (){
+    Route::get('/', 'GasTrackController@about')->name('GasTrackAbout');
+});
+
+Route::group(['prefix' => '/admin', 'namespace' => 'Admin'], function (){
+    Route::get('/', 'HomeController@index')->name('AdminHome');
+});
