@@ -23,4 +23,17 @@ Route::group(['prefix' => '/gas-track', 'namespace' => 'Web'], function (){
 
 Route::group(['prefix' => '/admin', 'namespace' => 'Admin'], function (){
     Route::get('/', 'HomeController@index')->name('AdminHome');
+
+    Route::group(['prefix' => '/web'], function (){
+        Route::get('/users/select', 'UserController@select');
+    });
+    
+    Route::group(['prefix' => '/gas-track'], function (){
+        Route::get('/', 'GasTrackController@index')->name('AdminGasTracks');
+        Route::post('/set-user', 'GasTrackController@setUser')->name('AdminGasTrackSetUser');
+    });
+
+    Route::group(['prefix' => '/users'], function (){
+        Route::get('/', 'UserController@index')->name('AdminUsers');
+    });
 });
