@@ -10,14 +10,18 @@
     <title>{{ config('app.name', 'APIs WebGS') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
+    @guest
+    <script src="{{ mix('js/app.js') }}" defer></script>
+    @else
+    <script src="{{ mix('js/admin-app.js') }}" defer></script>
+    @endif
+    
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -50,6 +54,14 @@
                             @endif
                         @else
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('AdminGasTracks') }}">{{ __('List of GasTracks') }}</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('AdminUsers') }}">{{ __('List of User') }}</a>
+                            </li>
+
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('AdminHome') }}">{{ __('Admin') }}</a>
                             </li>
                                 
@@ -75,6 +87,38 @@
                 </div>
             </div>
         </nav>
+
+        @if(!empty($errors->first()))
+        <div class="container-fluid mt-4">
+            <div class="row">
+                <div class="col-12">
+                    <div class="alert alert-danger mb-0">
+                        <h3>{{__('Errors')}}</h3>
+
+                        <ul>
+                        @foreach($errors->all() as $key => $error)
+                            <li>
+                                {{$error}}
+                            </li>
+                        @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+
+        @if (Session::has('success'))
+        <div class="container-fluid mt-4">
+            <div class="row">
+                <div class="col-12">
+                    <div class="alert alert-success mb-0">
+                        {{__(Session::get('success'))}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
 
         <main class="py-4">
             @yield('content')

@@ -50,26 +50,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-md-6 mt-md-4">
-            <div class="card">
-                <div class="card-header">Last votes</div>
-
-                <div class="card-body">
-                    <ul>
-                        @foreach ($lastVotes as $vote)
-                        <li>
-                            <b>Star:</b> {{ $vote->stars }} 
-                            <b>Origin:</b> {{$vote->origin}} 
-                            <b>Creation:</b> {{$vote->created_at->format('h:i d/m/Y')}}
-                            <br> 
-                            <b>Comment:</b> {{$vote->comment}} 
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 @endsection
